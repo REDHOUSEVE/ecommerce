@@ -50,4 +50,5 @@ class EdlyOrganizationAccessMiddleware(object):
         if user_is_authenticated and not user_is_superuser and not user_has_edly_organization_access(request):
             logger.exception('Edly user %s has no access for site %s.' % (request.user.email, request.site))
             if request.path != '/logout':
+                logger.exception('Logout frontend URL=========> {logout_url}').format(logout_url=settings.FRONTEND_LOGOUT_URL)
                 return HttpResponseRedirect(settings.FRONTEND_LOGOUT_URL)
